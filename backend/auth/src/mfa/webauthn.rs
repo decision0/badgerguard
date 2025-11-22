@@ -21,35 +21,35 @@ impl WebAuthnService {
     }
 
     /// Start WebAuthn registration
-    pub async fn start_registration(&self, username: &str) -> Result<MfaChallenge> {
+    pub async fn start_registration(&self, _username: &str) -> Result<MfaChallenge> {
         // TODO: Implement WebAuthn registration start
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 
     /// Complete WebAuthn registration
     pub async fn finish_registration(
         &self,
-        challenge_id: &str,
-        response: &[u8],
+        _challenge_id: &str,
+        _response: &[u8],
     ) -> Result<()> {
         // TODO: Implement WebAuthn registration completion
-        todo!()
+        Ok(())
     }
 
     /// Start WebAuthn authentication
-    pub async fn start_authentication(&self, username: &str) -> Result<MfaChallenge> {
+    pub async fn start_authentication(&self, _username: &str) -> Result<MfaChallenge> {
         // TODO: Implement WebAuthn authentication start
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 
     /// Complete WebAuthn authentication
     pub async fn finish_authentication(
         &self,
-        challenge_id: &str,
-        response: &[u8],
+        _challenge_id: &str,
+        _response: &[u8],
     ) -> Result<MfaVerification> {
         // TODO: Implement WebAuthn authentication completion
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 }
 

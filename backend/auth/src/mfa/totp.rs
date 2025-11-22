@@ -11,7 +11,7 @@ impl TotpService {
     /// Generate a new TOTP secret
     pub fn generate_secret() -> String {
         // TODO: Generate secure random secret
-        todo!()
+        "placeholder-secret".to_string()
     }
 
     /// Generate QR code URI for TOTP enrollment
@@ -20,24 +20,24 @@ impl TotpService {
     }
 
     /// Verify TOTP code
-    pub fn verify(secret: &str, code: &str, window: u64) -> bool {
+    pub fn verify(_secret: &str, _code: &str, _window: u64) -> bool {
         // TODO: Implement TOTP verification
-        todo!()
+        false
     }
 
     /// Create TOTP challenge
-    pub async fn create_challenge(user_id: &str) -> Result<MfaChallenge> {
+    pub async fn create_challenge(_user_id: &str) -> Result<MfaChallenge> {
         // TODO: Create TOTP challenge
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 
     /// Verify TOTP challenge
     pub async fn verify_challenge(
-        challenge_id: &str,
-        code: &str,
+        _challenge_id: &str,
+        _code: &str,
     ) -> Result<MfaVerification> {
         // TODO: Verify TOTP challenge
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 }
 

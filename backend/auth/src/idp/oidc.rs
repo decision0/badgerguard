@@ -38,13 +38,13 @@ impl OidcClient {
     /// Get authorization URL
     pub fn authorization_url(&self) -> String {
         // TODO: Implement OIDC authorization URL generation
-        todo!()
+        "".to_string()
     }
 
     /// Exchange authorization code for token and user info
-    pub async fn authenticate(&self, code: &str) -> Result<UserInfo> {
+    pub async fn authenticate(&self, _code: &str) -> Result<UserInfo> {
         // TODO: Implement OIDC token exchange and userinfo fetch
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 }
 

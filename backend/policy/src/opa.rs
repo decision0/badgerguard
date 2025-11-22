@@ -16,17 +16,17 @@ impl OpaClient {
     }
 
     /// Evaluate policy
-    pub async fn evaluate(&self, request: &PolicyRequest) -> Result<PolicyResponse> {
+    pub async fn evaluate(&self, _request: &PolicyRequest) -> Result<PolicyResponse> {
         // TODO: Implement OPA query
         // POST /v1/data/badgerguard/policy/allow
-        todo!()
+        anyhow::bail!("Not implemented yet")
     }
 
     /// Load policy from file
-    pub async fn load_policy(&self, policy_id: &str, rego: &str) -> Result<()> {
+    pub async fn load_policy(&self, _policy_id: &str, _rego: &str) -> Result<()> {
         // TODO: Implement OPA policy upload
         // PUT /v1/policies/{policy_id}
-        todo!()
+        Ok(())
     }
 }
 
