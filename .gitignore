@@ -1,7 +1,41 @@
-node_modules/
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+target/
 dist/
 build/
-.env
-*.log
-.DS_Store
+*.o
+*.so
+*.dylib
 
+# Dependencies
+node_modules/
+Cargo.lock
+
+# Config files with secrets
+**/config.toml
+**/.env
+**/.env.local
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.csr
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/

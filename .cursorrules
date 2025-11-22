@@ -1,0 +1,160 @@
+meta:
+  default_message: >
+    You are working on BadgerGuard, an open-source Zero-Trust MFA Router.
+    Always prioritize security, privacy, and clarity. Never modify files without explicit approval.
+    When in doubt, ask the repository owner for clarification before acting.
+
+rules:
+  # 1. Absolute: never touch files without explicit approval
+  - id: always-ask-before-write
+    description: Never modify, create, or delete files without explicit user approval.
+    triggers:
+      - code_generation
+      - code_modification
+      - file_creation
+      - file_edit
+      - file_delete
+      - apply_diff
+    actions:
+      - require_confirmation
+
+  # 2. Always ask which area/module to work in
+  - id: require-file-scope
+    description: Always ask the user which folder/module/file to operate on before generating or modifying code.
+    triggers:
+      - code_generation
+      - code_modification
+    actions:
+      - request_clarification
+
+  # 3. Protect critical config & infra files
+  - id: protect-core-files
+    description: Protect core configuration and infra files from casual edits.
+    triggers:
+      - file_edit
+      - file_delete
+    targets:
+      - "backend/**/Cargo.toml"
+      - "backend/**/Dockerfile"
+      - "frontend/package.json"
+      - "frontend/**/vite.config.*"
+      - "frontend/**/next.config.*"
+      - "mobile/**/package.json"
+      - "docker-compose.yml"
+      - "helm/**"
+      - ".github/workflows/**"
+      - ".cursorrules"
+    actions:
+      - require_confirmation
+
+  # 4. Enforce modular architecture boundaries
+  - id: enforce-modular-architecture
+    description: Keep gateway, auth/MFA, policy, frontend, and mobile concerns separated by folders.
+    triggers:
+      - code_generation
+      - code_modification
+    actions:
+      - review_architecture
+
+  # 5. Secure coding requirements (no secrets, no dumb logging)
+  - id: enforce-secure-coding
+    description: Ensure all generated code follows secure patterns and avoids common security anti-patterns.
+    triggers:
+      - code_generation
+      - code_modification
+    actions:
+      - security_review
+
+  # 6. Block random external services / trackers by default
+  - id: block-external-services
+    description: Do not add analytics, trackers, or unknown external SaaS dependencies without explicit approval.
+    triggers:
+      - dependency_add
+      - code_generation
+    actions:
+      - require_confirmation
+
+  # 7. Require tests with new features
+  - id: require-tests
+    description: When generating new features or modules, also propose appropriate tests.
+    triggers:
+      - code_generation
+    actions:
+      - append_tests
+
+  # 8. Require documentation for new modules
+  - id: require-docs
+    description: For new modules, components, or services, include basic documentation and comments.
+    triggers:
+      - file_creation
+      - code_generation
+    actions:
+      - append_documentation
+
+  # 9. Keep diffs small and reviewable
+  - id: limit-diff-size
+    description: Avoid huge diffs. If a change exceeds ~200 lines, ask for confirmation before applying.
+    triggers:
+      - apply_diff
+    actions:
+      - require_confirmation
+
+  # 10. Enforce formatting & style on generated code
+  - id: enforce-style
+    description: All generated code should follow project style (Rustfmt, ESLint/Prettier, etc.).
+    triggers:
+      - code_generation
+      - code_modification
+    actions:
+      - apply_formatting
+
+  # 11. Don’t hallucinate APIs or behavior
+  - id: require-real-context
+    description: If the relevant code or API is not present in the repo, ask for clarification instead of inventing it.
+    triggers:
+      - code_generation
+    actions:
+      - request_clarification
+
+  # 12. OSS license / dependency hygiene
+  - id: ensure-license-compliance
+    description: Prefer MIT/Apache-2.0/BSD-3 dependencies. Never add GPL or unknown-license deps without approval.
+    triggers:
+      - dependency_add
+    actions:
+      - require_confirmation
+
+  # 13. Commit message discipline (if using Cursor’s git assist)
+  - id: commit-message-standard
+    description: Use conventional commit style: feat:, fix:, chore:, refactor:, docs:, test: etc.
+    triggers:
+      - prepare_commit
+    actions:
+      - enforce_commit_style
+
+  # 14. Security-sensitive files: be extra careful
+  - id: protect-security-surfaces
+    description: Treat auth, crypto, and policy code as high-risk areas; always highlight security implications.
+    triggers:
+      - code_modification
+      - code_generation
+    targets:
+      - "backend/**/auth/**"
+      - "backend/**/mfa/**"
+      - "backend/**/crypto/**"
+      - "backend/**/policy/**"
+      - "backend/**/gateway/**"
+    actions:
+      - security_review
+      - require_confirmation
+
+  # 15. No destructive operations without explicit consent
+  - id: prevent-destructive-ops
+    description: Never suggest or perform destructive operations (mass delete, schema drop, etc.) without explicit confirmation.
+    triggers:
+      - code_generation
+      - code_modification
+      - apply_diff
+    actions:
+      - require_confirmation
+
