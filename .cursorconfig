@@ -1,0 +1,86 @@
+{
+  // Enforce “ask-first” behavior globally
+  "requireConfirmation": true,
+  "askBeforeWrite": true,
+  "askBeforeModify": true,
+  "askBeforeDelete": true,
+  "askBeforeApplyDiff": true,
+
+  // Strengthen d﻿iff protection
+  "warnBeforeLargeDiff": true,
+  "largeDiffThreshold": 200, 
+  "blockLargeDiffsWithoutApproval": true,
+
+  // Make Cursor cautious in every chat session
+  "defaultMode": "ask",
+  "defaultToAskMode": true,
+  "autoWrite": false,
+  "autoApply": false,
+  "safeMode": true,
+
+  // Avoid generating files in bulk unless permitted
+  "maxGeneratedFiles": 1,
+
+  // Prevent hallucinated APIs or made-up dependencies
+  "requireContextForCodeActions": true,
+  "blockUnknownDependencies": true,
+  "askBeforeAddingDependencies": true,
+
+  // Keep open-source licensing safe
+  "allowedLicenses": [
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause"
+  ],
+  "requireApprovalForLicenseExceptions": true,
+
+  // Security posture for BadgerGuard (zero-trust code discipline)
+  "security": {
+    "noHardcodedSecrets": true,
+    "noPlaintextCredentials": true,
+    "noExternalTracking": true,
+    "noRandomExternalAPIs": true,
+    "auditAllGeneratedCode": true,
+    "highlightSecurityRisks": true,
+    "requireSecurityReviewForSensitiveAreas": [
+      "backend/gateway/**",
+      "backend/auth/**",
+      "backend/mfa/**",
+      "backend/crypto/**",
+      "backend/policy/**"
+    ]
+  },
+
+  // Force Cursor to ask for file/folder scope before generating code
+  "askForTargetDirectory": true,
+  "askForTargetFile": true,
+
+  // Formatting rules
+  "formatOnGenerate": true,
+  "formatOnApply": true,
+  "codeStyle": {
+    "rustFmt": true,
+    "prettier": true,
+    "eslintFix": true
+  },
+
+  // Prevent destructive operations
+  "blockDeleteRecursively": true,
+  "blockDangerousCommands": true,
+  "blockSchemaChangesWithoutApproval": true,
+
+  // Notifications
+  "notifyOnWrite": true,
+  "notifyOnModify": true,
+  "notifyOnDelete": true,
+
+  // Keep AI predictable
+  "avoidHugeRefactors": true,
+  "avoidMultiFileChanges": true,
+  "alwaysAskBeforeMultiFileChanges": true,
+
+  // Change management clarity
+  "askForCommitMessage": true,
+  "enforceConventionalCommits": true
+}
+
